@@ -11,6 +11,19 @@ const x = new Xendit({
     "xnd_development_T3YzSAlX0KaWQnud9aMcXrcAkjoBx1GxOznt5Iqtr2NpgFMAcbFGcOAMVkbLCp",
 });
 
+Router.get("/channels", (req, res, next) => {
+    const { Balance } = x;
+    const b = new Balance({});
+
+    b.getBalance({}).then((banks) =>{
+        res.status(200).json({banks});
+    }).catch((err) => {
+        if(err){
+            res.status(400).json({err});
+        }
+    });
+});
+
 Router.get("/banks", (req, res, next) => {
   const { VirtualAcc } = x;
   const va = new VirtualAcc({});
