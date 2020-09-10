@@ -3,12 +3,11 @@ const Router = express.Router();
 const Xendit = require("xendit-node");
 const va = require("xendit-node/src/va");
 
-const fixedva = "5f59ee36f3dbf91cf0afed90";
-const accoutno = "107669999439843";
+const fixedva = process.env.FIXED_VA;
+const accoutno = process.env.ACCOUNT_NO;
 
 const x = new Xendit({
-  secretKey:
-    "xnd_development_T3YzSAlX0KaWQnud9aMcXrcAkjoBx1GxOznt5Iqtr2NpgFMAcbFGcOAMVkbLCp",
+  secretKey: process.env.XENDIT_SECRET,
 });
 
 Router.get("/channels", (req, res, next) => {
@@ -77,7 +76,7 @@ Router.post("/pay", (req, res, next) => {
     const { VirtualAcc } = x;
     const va = new VirtualAcc({});
 
-    va.updateFixedVA({id: fixedva, expectedAmt: 12000}).then(() => {
+    va.updateFixedVA({id: fixedva, virtualAccNumber: "7011574125"}).then(() => {
         res.status(200).json({message: "Your VA has been updated"});
     }).catch((err) => {
         res.status(400).json({err});
